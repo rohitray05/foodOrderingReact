@@ -1,0 +1,89 @@
+.header{
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid black;
+  padding-right: 0.5rem;
+}
+
+.body{
+  display: flex;
+  flex-direction: column;
+}
+
+.logo_container{
+  height: 7rem;
+}
+
+.logo_class{
+  height: 7rem;
+}
+
+.nav_item{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.header_list{
+  display: flex;
+  justify-content: space-around;
+  gap:3rem;
+  align-items: center;
+}
+
+.header_list>li{
+  list-style-type: none;
+}
+
+.search,.res_cotainer{
+  padding: 1rem;
+}
+
+.res_cotainer{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.res_card{
+  max-width: 20%;
+  padding: 0.5rem;
+  cursor: pointer;
+  background-color: lightgray;
+  margin: 0.5rem;
+  border-radius:0.5rem;
+}
+
+.res_card:hover{
+  border: 1px solid black;
+}
+
+.res_image{
+  width: 16.3rem;
+  height: 12.5rem;
+}
+
+.filter{
+  display: flex;
+  padding: 1rem;;
+}
+
+.filter_btn{
+  padding: 0.3rem;
+  cursor: pointer;
+}
+
+.shimmer_card{
+  width: 10rem;
+  height: 10rem;
+  margin: 20px;
+  background-color: #f0f0f0;
+}
+
+.shimmer_container{
+   display: flex;
+   flex-wrap: wrap;
+}
+
+.login_button{
+  
+}
