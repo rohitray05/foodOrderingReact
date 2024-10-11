@@ -3,6 +3,8 @@ import styles from '../../style.module.css'
 import RestaurantCard,{SwiggyRestaurantCard} from './RestaurantCardComponent'
 import { useEffect, useState } from 'react'
 import ShimmerUI from './Shimmer'
+import { Link } from 'react-router-dom'
+import useOnlineStatus from '../utils/useOnlineStatus'
 
 const Body = ()=>{
   //Local Satte Variable - Super powerful variable
@@ -50,7 +52,10 @@ const Body = ()=>{
   //  return <ShimmerUI/>
   // }
   const [searchText,setSearchText] = useState('')
+  const onlineStatus = useOnlineStatus();
 
+  if(onlineStatus === false) return (<h1>You are Offline, Please Check your Internet</h1>)
+    
   return !listOfRestaurants ? <ShimmerUI/> : (
     <div className={styles.body}>
       <div className={styles.search}>
@@ -73,7 +78,12 @@ const Body = ()=>{
       </div>
       <div className={styles.res_cotainer}>
        {
-        filteredRestaurant.map(restaurant=><SwiggyRestaurantCard key={restaurant.id}  resData={restaurant}/>)
+        filteredRestaurant.map(restaurant=>
+        <Link 
+        key={restaurant.id} 
+        to={"/restaurant/"+restaurant.id}>
+          <SwiggyRestaurantCard  resData={restaurant}/></Link>
+        )
        }
       </div>
     </div>

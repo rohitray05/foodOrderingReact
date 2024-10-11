@@ -1,20 +1,26 @@
-import { useEffect } from 'react'
 import styles from '../../style.module.css'
-
+import ShimmerUI from './Shimmer'
+import useRestaurantMenu from '../utils/useRestaurantMenu'
+import { useParams } from 'react-router-dom'
 
 const RestaurantMenu = ()=>{
-useEffect(()=>{
-  fetchMenu()
-},[])
 
-const fetchMenu = async ()=>{
+const {resId} = useParams()
+const resInfo = useRestaurantMenu(resId)
 
-}
-
-return (
+return !resInfo?<ShimmerUI/>:
+( 
   <div className={styles.menu}>
-    <h1>Name of Restaurant</h1>
-    <h2>Menu</h2>
+    <ul>
+      {resInfo.map(item=>(
+        <li key={item.id}>
+            <div>Name: {item.name}</div>
+            <div>Price: {item?.defaultPrice/100}</div>
+            <div>Rating: {item?.ratings?.aggregatedRating?.rating}</div>
+            <div>{item?.description}</div>
+        </li>
+      ))}
+    </ul>
   </div>
 )
 

@@ -135,7 +135,7 @@ Footer [ Links ]
 - if empty dependency Array, use Effect is called only once and at the initial render, even if the component re rendered useEffect(callback,[](optional empty array))
 - if dependency array is having a state variable then whenever the state variable gets updated the useEffect hook will be called and if any API is written inside it, it will be re triggered.
 
-# useSatate()
+# useState()
 
 - create useState() inside the functional Component. As soul purpose is to create local state variable.
 - do not create state variable inside a condition, or loop or function.
@@ -180,3 +180,147 @@ Footer [ Links ]
 
 - Client side Routing
 - Server Side Routing (make network call and it will send an html)
+
+# Client Side Routing
+
+- params are extracted from import { useParams } from 'react-router-dom' useParams
+- child routes help in dynamic loading of components like outlet
+
+# Class Based Components - Old way of Writing Code
+
+- Class based component is a component where we write a class which extends React.component and import React from "react"
+- we can also use object destructuring
+  - import {Component} from "react"
+  - class ClsComponnet extends Component
+- This class will have a method called render and the render method will return the required JSX
+- props passed to class component is same as functional componet <comp propname1={"content"} propname2={"content2"}/>
+- receiving the prop object is different in class based component
+- here we receive prop in a constructor and inside contructor we make that available to extended calss using super(props) inside constructor
+- Now since we have supered the props, props are ready to be used inside the render function using this keyword.
+- We can de structure the props obejct as well, inside the render function we can do const {propname1,propname2} = this.props
+- State Variable is created in class based component inside the constructor as it is better to have that created when we create the instance of Class
+- Inside the constrcutor we can write this.state = { count:0 }, this.state is the bigger object which has multiple thing as we create count inside state
+- const [count] = useState(0) in functional Component and this.state = { count:0 } inside Constructor of Class based Component
+- state object atkes care of all state variables
+- Behind the scene React uses one big state even in case of functional component
+- never update state variable directly
+- this.setState({count:this.state.count+1 }) This is how we update state variable in Class based Components
+
+# Life Cycle of Class based Component mounting
+
+- React has 2 phases of loading or Mountig:
+
+  - 1st phase is Rendering Phase where component loads : Pure and has no side effects. May be paused, aborted or restarted by React.
+  - 2nd phase is comit phase when we have data and we have to fill the component with data :
+    Can work with DOM, run side effects, schedule updates
+  - https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+
+- when class component is loaded or instantiated;scenario when class based component is inside a functional component
+
+  - Constructor Loads or called first
+  - Then render is called
+
+- when class component is loaded or instantiated;scenario when class based component is inside a parent Class component
+
+  - Parent Constructor Loads or called first
+  - Then Parent render is called
+  - Child Constructor Loads or called first
+  - Then Child render is called
+
+- Apart from render(), React provides another method called componentDidMount() in Class based Component
+
+  - Constructor Loads or called first
+  - Then render is called
+  - Then Component Did Mount method
+
+- Now if the Parent Class component and Child Class component are having all 3 methods, constructor,render() and componentDidMount() then:
+
+  - Parent Constructor Loads or called first
+  - Then Parent render is called
+  - Child Constructor Loads or called first
+  - Then Child render is called
+  - Then Child componentDidMount is called
+  - Finally the Parents componentDidMount is called
+
+- Usage of Component Did Mount is to make API call
+
+  - In func component we used to have useEffect(()=>{},[]) with dependency array to make API call, same behaviour, Render Component, make API call and then fill the component with Data
+
+- When within single Parent we have 2 child class component then Constructor and Render will be called as wiin sync and when it apprears in code,
+  and only after completeing all constructor and render , componentDidMount of first child will be called, followed by subseqent child and finally Parent Component did Mount will be called at last.
+
+- Render phases of Mounting is completed first, and only when the Render phase gets completed, then Commit phase is called.
+- Commit phase React updates the DOM and do DOM manipulation, As DOM manipilation is an expensive task, React does that in commit phase at the end only after finishing the Render Phase
+
+- React Optimization works in a way
+  - Mounting Phase
+    - Render Phase
+    - Commit Phase : Let DOM get updated with Dummy Data initially
+  - Updating Phase
+    - newProps, setState, forceUpdate() All these methods trgger the render method again
+    - Since State is now changed or update, React will update the DOM
+    - After Updating we have componentDidUpdate() as well
+
+# All Cycle Diagram and Phase
+
+- Mounting Phase
+
+  - constructor(dummy)
+  - Render(dummy)
+  - HTML with Dummy
+  - ComponentDidMount()
+    - API Call
+    - Update State is last phase after this React will go to Update phase and call render method again
+
+- Update Phase
+
+  - render(with API Data)
+  - React updates DOM<html> and begins reconcilation process
+  - ComponentDidUpdate is called next
+
+- Unmounting Phase
+  - If nothing has to be Updated then the last phase is Unmounting Phase
+  - componnetWillUnmount()
+  - This will be called when we either load different component or get to diff URl
+
+# Comparision between Functional and Class via useEffect in Func Comp and Lifecycle in Class
+
+- useEffect(()=>{some operation},[]) empty array means once
+- useEffect(()=>{some operation},[count]) asssuming count being state variable, then with every change, use effect will be called
+- In class based Component as we know there is componentDidUpdate lifecycle is there and in order to check and do the update we have to write if condition
+- componentDidUpdate(prevProps,previousState){
+  if(this.state.count != previousState.count||
+  this.state.anotherStateVariable != previousState.anotherStateVariable){
+  //then do something
+  }
+  } // Here in this if we write all possible cond to trigger API , hence multiple Condition
+- The reason why useEffect(()=>{some operation},[]) it has dep array and not just a state, because there can be many state and many props that can trigger useEffect again
+
+- There could be two useEffect doing different operations based on diff diff state variables same in class it is having multiple if else
+
+- Assume we write SetInterval(()=>{},1000) After every 1 sec it will call the call back, even if we move out of the component and it being a single page APP, the setInterval method will be present in the main thread and will continue operation even when Url changes and new component is mounted. If we try mounting same component again then setInterval will have two instances
+
+- In Functional Componnet the same Unmount is done using a return method which will be called for clean up
+
+# Creation of Custom Hooks
+
+- Hooks being Utility Params
+- Single Responsibility implementation can eb done using Custom Hooks
+- Fetching Data Logic & Hook's state management can be outsourced to Custom Hooks
+- Just like Component, Custom Hooks can also have useEffect and useState both hooks
+
+# Chunking/Dynamic Bundlying/Lazy Loading/Code Splitting
+
+- Different names for the same process and techniques but does same thing
+- This helps in breaking one large js to smaller pieces
+- Bundle of components for 1 feature
+- Based on feature we can break the app into multiple logical bundles and each bundle can have multiple components
+
+# Same Chunking option we are defining in our Grocery feature
+
+- Here Grocery will be Lazy Loading
+- import {lazy} from "react"
+- import {Suspense} from "react"
+- const Grocery = lazy(()=> import('./components/Grocery'))
+- {path:'/grocery',element:<Suspense fallback={<h3>Loading</h3>}><Grocery/></Suspense>
+- This fall back is imp so when on demand bundle does not load, then this fall back is used, React asks for something to Render while the chunck is Loading

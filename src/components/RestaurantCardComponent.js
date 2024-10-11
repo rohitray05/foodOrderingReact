@@ -1,7 +1,7 @@
 
 import MEGHNA_LOGO from '../../assets/meghna.png'
 import styles from '../../style.module.css'
-
+import {cloudImage} from '../constants/constants'
 
 const RestaurantCard = (props)=> {
   const {resData} = props
@@ -19,7 +19,7 @@ const RestaurantCard = (props)=> {
 export const SwiggyRestaurantCard = (props)=> {
   const {resData} = props
   const {name,cuisines,avgRating,sla,cloudinaryImageId} = resData;
-  const cloudImage = 'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/'
+  
   return ( <div className={styles.res_card}>
      <h3>{name}</h3>
      <img className={styles.res_image}  src={cloudImage+cloudinaryImageId}/>

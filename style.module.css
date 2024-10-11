@@ -45,7 +45,6 @@
 }
 
 .res_card{
-  max-width: 20%;
   padding: 0.5rem;
   cursor: pointer;
   background-color: lightgray;
@@ -84,6 +83,7 @@
    flex-wrap: wrap;
 }
 
-.login_button{
-  
+.user_card{
+  padding: 10px;
+  border:1px solid black;
 }

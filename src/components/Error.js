@@ -5,7 +5,9 @@ const ErrorComponent = ()=>{
 const err  = useRouteError()
 console.log(err)
 return (
-<div>{err.error.message}</div>
+<div>
+  <h3>Oops Something Went Wrong!!</h3>
+</div>
 )
 }
 
