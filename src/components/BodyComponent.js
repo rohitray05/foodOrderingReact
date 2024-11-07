@@ -59,14 +59,15 @@ const Body = ()=>{
   return !listOfRestaurants ? <ShimmerUI/> : (
     <div className={styles.body}>
       <div className={styles.search}>
-        <input type='text' value = {searchText} onChange={(e)=>{setSearchText(e.target.value)}}/>
-        <button onClick={()=>{
+        <input className='border border-solid border-black'
+        type='text' value = {searchText} onChange={(e)=>{setSearchText(e.target.value)}}/>
+        <button className='px-4 py-1 bg-green-100 m-4'  onClick={()=>{
          const filteredList = listOfRestaurants.filter(res=>res.name.toLowerCase().includes(searchText.toLowerCase()))
          setFilteredRestaurant(filteredList)
         }}>Search</button>
       </div>
       <div className={styles.filter}>
-        <button className={styles.filter_btn} onClick={()=>{
+        <button className='px-4 py-1 bg-green-100 m-4 rounded-lg' onClick={()=>{
           const filteredList = listOfRestaurants.filter(res=>+res.avgRatingString > 4)
           setFilteredRestaurant(filteredList)
         }}
@@ -76,7 +77,7 @@ const Body = ()=>{
           setFilteredRestaurant(listOfRestaurants)
         }}>Reset To All Restaurant</button>
       </div>
-      <div className={styles.res_cotainer}>
+      <div className='flex flex-wrap'>
        {
         filteredRestaurant.map(restaurant=>
         <Link 

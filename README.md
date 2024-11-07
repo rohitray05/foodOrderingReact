@@ -322,5 +322,30 @@ Footer [ Links ]
 - import {lazy} from "react"
 - import {Suspense} from "react"
 - const Grocery = lazy(()=> import('./components/Grocery'))
-- {path:'/grocery',element:<Suspense fallback={<h3>Loading</h3>}><Grocery/></Suspense>
+- {path:'/grocery',element: <Suspense fallback={<h3>Loading</h3>}><Grocery/></Suspense>
 - This fall back is imp so when on demand bundle does not load, then this fall back is used, React asks for something to Render while the chunck is Loading
+
+# Styling Application
+
+- Recommended way is Styled Component : styled-component
+- Material UI
+- Bootstrap
+- chakra UI
+- Ant-design
+
+# Tailwind CSS
+
+- Tailwind uses PostCSS behind the scene and postCSS transform CSS with JS
+- cmds:
+  - npm install -D tailwindcss postcss
+  - npx tailwindcss init
+- Configure .postcssrc with the info in documention
+- In tailwind config in content we write regex like statement saying, expect tailwind at diff places
+- In Tailwind there are some predefined classes , but in case have to be specific abt an attribute or hadcoded attribute then we can write w-[200px] This is width hardcoded as 200px
+
+- # Pros & Cons
+- Easy to begin
+- Cons: If in case have to write many css, it makes JS ugly
+- Tailwind is Light : When parcel bundles the code , classes which are not used is not included in the bundle
+- eg. if using m-4 many times , tailwind will assure that m-4 is imported just once , and classes which are not used are not included in the bundle
+- can write media Queries as well sm-> small devices, md , and lg for respective device sizes

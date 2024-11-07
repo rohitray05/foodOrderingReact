@@ -11,18 +11,18 @@ const Header = () =>{
   const [btnNameReact,setBtnNameReact] = useState('Login')
   const onlineStatus = useOnlineStatus()
   return (
-    <div className={styles.header}>
-      <div className={styles.logo_container}>
-        <img className={styles.logo_class} src={HEADER_LOGO}/>
+    <div className="flex justify-between bg-pink-200 shadow-lg sticky">
+      <div className="">
+        <img className="w-56" src={HEADER_LOGO}/>
       </div>
-      <div className={styles.nav_item}>
-        <ul className={styles.header_list}>
-          <li>Online Status: {onlineStatus? '✅' : '🔴' } </li>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About Us</Link></li>
-          <li><Link to="/contact">Contact Us</Link></li>
-          <li><Link to="/cart">Cart</Link></li>
-          <li><Link to="/grocery">Grocery</Link></li>
+      <div className="flex items-center">
+        <ul className="flex p-4 m-4">
+          <li className='px-4'>Online Status: {onlineStatus? '✅' : '🔴' } </li>
+          <li className='px-4'><Link to="/">Home</Link></li>
+          <li className='px-4'><Link to="/about">About Us</Link></li>
+          <li className='px-4'><Link to="/contact">Contact Us</Link></li>
+          <li className='px-4'><Link to="/cart">Cart</Link></li>
+          <li className='px-4'><Link to="/grocery">Grocery</Link></li>
           <button className={styles.login_button} onClick={
             ()=>{
               btnNameReact === 'Login' ? 
